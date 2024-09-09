@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividades</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .container {
+            width: 30%;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: black;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Tabla de Multiplicar</h2>
+    <label for="numero">Ingrese un número entero:</label>
+    <input type="number" id="numero" min="0" step="1">
+    <button onclick="imprimirTabla()">Imprimir Tabla</button>
+    <div id="resultadoTabla" class="result"></div>
+</div>
+
+<div class="container">
+    <h2>Temperaturas del Día</h2>
+    <label for="numTemperaturas">Ingrese el número de temperaturas:</label>
+    <input type="number" id="numTemperaturas" min="1" step="1">
+    <button onclick="solicitarTemperaturas()">Solicitar Temperaturas</button>
+    <div id="entradasTemperaturas"></div>
+    <button id="calcularPromedioBtn" style="display:none;" onclick="calcularPromedio()">Calcular Promedio</button>
+    <div id="resultadoTemperaturas" class="result"></div>
+</div>
+
+<div class="container">
+    <h2>Calculadora</h2>
+    <label for="numero1">Número 1:</label>
+    <input type="number" id="numero1" step="0.01">
+    <label for="numero2">Número 2:</label>
+    <input type="number" id="numero2" step="0.01">
+    <button onclick="calcular('sumar')">Sumar</button>
+    <button onclick="calcular('restar')">Restar</button>
+    <button onclick="calcular('multiplicar')">Multiplicar</button>
+    <button onclick="calcular('dividir')">Dividir</button>
+    <button onclick="calcular('raiz')">Raíz Cuadrada</button>
+    <button onclick="calcular('potencia2')">Potencia de 2</button>
+    <button onclick="calcular('potencia3')">Potencia de 3</button>
+    <div id="resultadoCalculadora" class="result"></div>
+</div>
+
+<script>
+    function imprimirTabla() {
+        const numero = parseInt(document.getElementById('numero').value);
+        if (isNaN(numero)) {
+            document.getElementById('resultadoTabla').innerText = 'Por favor, ingrese un número válido.';
+            return;
+        }
+        let resultado = '';
+        for (let i = 1; i <= 10; i++) {
+            resultado += `${numero} x ${i} = ${numero * i}<br>`;
+        }
+        document.getElementById('resultadoTabla').innerHTML = resultado;
+    }
+
+    function solicitarTemperaturas() {
+        const numTemperaturas = parseInt(document.getElementById('numTemperaturas').value);
+        if (isNaN(numTemperaturas) || numTemperaturas <= 0) {
+            document.getElementById('resultadoTemperaturas').innerText = 'Por favor, ingrese un número válido.';
+            return;
+        }
+        let entradasTemperaturas = '';
+        for (let i = 0; i < numTemperaturas; i++) {
+            entradasTemperaturas += `<label for="temperatura${i}">Temperatura ${i + 1}:</label><input type="number" id="temperatura${i}" step="0.01"><br>`;
+        }
+        document.getElementById('entradasTemperaturas').innerHTML = entradasTemperaturas;
+        document.getElementById('calcularPromedioBtn').style.display = 'block';
+    }
+
+    function calcularPromedio() {
+        const numTemperaturas = parseInt(document.getElementById('numTemperaturas').value);
+        let suma = 0;
+        let temperaturas = [];
+        for (let i = 0; i < numTemperaturas; i++) {
+            const temperatura = parseFloat(document.getElementById(`temperatura${i}`).value);
+            if (isNaN(temperatura)) {
+                document.getElementById('resultadoTemperaturas').innerText = 'Por favor, ingrese todas las temperaturas.';
+                return;
+            }
+            temperaturas.push(temperatura);
+            suma += temperatura;
+        }
+        const promedio = suma / numTemperaturas;
+        document.getElementById('resultadoTemperaturas').innerHTML = `Temperaturas: ${temperaturas.join(', ')}<br>Promedio: ${promedio.toFixed(2)}`;
+    }
+
+    function calcular(operacion) {
+        const numero1 = parseFloat(document.getElementById('numero1').value);
+        const numero2 = parseFloat(document.getElementById('numero2').value);
+        let resultado;
+
+        switch (operacion) {
+            case 'sumar':
+                resultado = numero1 + numero2;
+                break;
+            case 'restar':
+                resultado = numero1 - numero2;
+                break;
+            case 'multiplicar':
+                resultado = numero1 * numero2;
+                break;
+            case 'dividir':
+                if (numero2 === 0) {
+                    document.getElementById('resultadoCalculadora').innerText = 'No se puede dividir por cero.';
+                    return;
+                }
+                resultado = numero1 / numero2;
+                break;
+            case 'raiz':
+                resultado = `Raíz Cuadrada de ${numero1}: ${Math.sqrt(numero1).toFixed(2)}, Raíz Cuadrada de ${numero2}: ${Math.sqrt(numero2).toFixed(2)}`;
+                break;
+            case 'potencia2':
+                resultado = `Potencia de 2 de ${numero1}: ${Math.pow(numero1, 2)}, Potencia de 2 de ${numero2}: ${Math.pow(numero2, 2)}`;
+                break;
+            case 'potencia3':
+                resultado = `Potencia de 3 de ${numero1}: ${Math.pow(numero1, 3)}, Potencia de 3 de ${numero2}: ${Math.pow(numero2, 3)}`;
+                break;
+            default:
+                resultado = 'Operación no válida.';
+        }
+
+        document.getElementById('resultadoCalculadora').innerText = `Resultado: ${resultado}`;
+    }
+</script>
+
+</body>
+</html>

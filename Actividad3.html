@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="sonido.js" defer></script>
+    <title>APIsonido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 450px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin: 5px;
+        }
+        button:hover {
+            background-color: black;
+        }
+        li {
+            text-align: left;
+            list-style-type: none; 
+            padding: 0;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container" style="text-align: center;">
+        <h2>Reproductor de mp3</h2>
+        <label for="horas">Elige tu canción favorita:</label>
+        <button id="btnReiniciar" type="button">
+            <img src="/reiniciar.png" height="60" width="60" alt="Botón de reiniciar">
+        </button>
+        <button id="btnAtras" type="button">
+            <img src="/atras.png" height="60" width="60" alt="Botón de atras">
+        </button>
+        <button id="btnReproducir" type="button">
+            <img src="/play.png" height="60" width="60" alt="Botón de reproducir">
+        </button>
+        <button id="btnPausar" type="button">
+            <img src="/pause.jpg" height="60" width="60" alt="Botón de pausar">
+        </button>
+        <button id="btnSiguiente" type="button">
+            <img src="/next.jpg" height="60" width="60" alt="Botón de Siguiente">
+        </button>
+        
+        <ul id="listaCanciones"></ul>
+    </div>
+
+</body>
+</html>

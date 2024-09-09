@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprobación del curso</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: aquamarine;              
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: tomato;
+        }
+        #resultado {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff0ff;
+            
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Determinar Aprobación del Curso</h1>
+        <label for="grado1">Primera Calificación:</label>
+        <input type="numero" id="grado1" step="0.01" required>
+        <label for="grado2">Segunda Calificación:</label>
+        <input type="numero" id="grado2" step="0.01" required>
+        <label for="grado3">Tercera Calificación:</label>
+        <input type="numero" id="grado3" step="0.01" required>
+        <button onclick="aprobado()">Verificar</button>
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        function aprobado() {
+
+            const grado1 = parseFloat(document.getElementById('grado1').value);
+            const grado2 = parseFloat(document.getElementById('grado2').value);
+            const grado3 = parseFloat(document.getElementById('grado3').value);
+
+            if (isNaN(grado1) || isNaN(grado2) || isNaN(grado3)) {
+                document.getElementById('resultado').innerText = 'Por favor, ingrese calificaciones válidas.';
+                return;
+            }
+
+            const promedio = (grado1 + grado2 + grado3) / 3;
+            let resultado;
+            if (promedio >= 4) {
+                resultado = '¡Felicidades! Has aprobado el curso.';
+            } else {
+                resultado = 'Lo siento, has reprobado el curso.';
+            }
+            document.getElementById('resultado').innerText = `Promedio: ${promedio.toFixed(2)}\n${resultado}`;
+        }
+    </script>
+</body>
+</html>

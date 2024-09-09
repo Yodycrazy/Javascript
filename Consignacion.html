@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Saldo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: black;
+        }
+        .resultado {
+            margin-top: 30px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" style="text-align: center;">
+    <h2>Gestión de Saldo</h2>
+    <label for="saldoInicial">Saldo Inicial:</label>
+    <input type="number" id="saldoInicial" min="0" step="0.01">
+
+    <label for="deposito">Valor de la Consignación:</label>
+    <input type="number" id="deposito" min="0" step="0.01">
+
+    <label for="retiro">Valor del Retiro:</label>
+    <input type="number" id="retiro" min="0" step="0.01">
+
+    <button onclick="gestionarSaldo()">Gestionar Saldo</button>
+
+    <div id="resultado" class="resultado"></div>
+</div>
+
+<script>
+    function gestionarSaldo() {
+        const saldoInicial = parseFloat(document.getElementById('saldoInicial').value);
+        const consignacion = parseFloat(document.getElementById('deposito').value);
+        const retiro = parseFloat(document.getElementById('retiro').value);
+
+        if (isNaN(saldoInicial) || isNaN(consignacion) || isNaN(retiro)) {
+            document.getElementById('resultado').innerText = 'Por favor, ingrese valores válidos.';
+            return;
+        }
+
+        let saldoFinal = saldoInicial + consignacion - retiro;
+
+        if (saldoFinal < 0) {
+            document.getElementById('resultado').innerText = 'Saldo insuficiente.';
+        } else {
+            document.getElementById('resultado').innerText = 'Nuevo saldo: $' + saldoFinal.toLocaleString('es-CL');
+        }
+    }
+</script>
+
+</body>
+</html>
